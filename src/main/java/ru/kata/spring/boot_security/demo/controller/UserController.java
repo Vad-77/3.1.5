@@ -33,13 +33,13 @@ public class UserController {
 
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
-        model.addAttribute("user", userService.getUserByName(principal.getName()));
+        model.addAttribute("user", userService.getUserByEmail(principal.getName()));
         return "userPage";
     }
 
     @GetMapping("/admin")
     public String adminPage(Model model, Principal principal) {
-        model.addAttribute("admin", userService.getUserByName(principal.getName()));
+        model.addAttribute("user", userService.getUserByEmail(principal.getName()));
         model.addAttribute("users", userService.allUsers());
         model.addAttribute("roles", roleService.allRoles());
         return "adminPage";
