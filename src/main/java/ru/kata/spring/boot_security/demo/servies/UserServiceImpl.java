@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void save(ArrayList<Integer> roles, String name, String password, String email) {
+    public User save(ArrayList<Integer> roles, String name, String password, String email) {
         Set<Role> roleSet = new HashSet<>();
         for (Integer roleId : roles) {
             roleSet.add(new Role(roleId));
@@ -38,6 +38,14 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roleSet);
         user.setPassword(passwordEncoder.encode(password));
         userDao.save(user);
+        return user;
+    }
+    @Transactional
+    @Override
+    public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.save(user);
+        return user;
     }
 
     @Transactional
@@ -54,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void update(ArrayList<Integer> roles, String name, String password, String email) {
+    public User update(ArrayList<Integer> roles, String name, String password, String email) {
 
         User user = userDao.getUserByName(name);
         user.setEmail(email);
@@ -67,6 +75,14 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(roleSet1);
         userDao.update(user);
+        return user;
+    }
+    @Transactional
+    @Override
+    public User update(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userDao.update(user);
+        return user;
     }
 
     @Transactional
@@ -77,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByNamePass(String name, String password) {
-        return userDao.getUserByNamePass(name,password);
+        return userDao.getUserByNamePass(name, password);
     }
 
     @Override
@@ -89,5 +105,6 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
+
 
 }

@@ -9,13 +9,15 @@ import java.util.List;
 public interface UserService {
 
 
-    void save(ArrayList<Integer> roles, String name, String password, String email);
+    User save(ArrayList<Integer> roles, String name, String password, String email);
     User getUserById(Long id);
     List<User> allUsers();
-    void update(ArrayList<Integer> roles, String name, String password, String email);
+    User update(ArrayList<Integer> roles, String name, String password, String email);
     void delete(Long id);
     User getUserByNamePass(String name, String password);
     User getUserByName(String name);
     User getUserByEmail(String email);
+    User save(User user);
+    User update(User user);
 
 }
